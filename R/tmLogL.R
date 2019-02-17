@@ -35,7 +35,7 @@ tmLogL <- function(df,group,group.of.interest,text,sparsity=0.80,threshold=3){
   # Second, create a corpus, then save as data frame.
   myReader <- readTabular(mapping=list(content="Text", id="Group"))
   corpus <- Corpus(DataframeSource(collapsed.text), readerControl=list(reader=myReader))
-  corpus <- tm_map(corpus,content_transformer(function(x) iconv(x, to='UTF-8-MAC', sub='byte')))
+  corpus <- tm_map(corpus,content_transformer(function(x) iconv(x, to='UTF-8', sub='byte')))
   tdm <- TermDocumentMatrix(corpus, control=list(tolower=TRUE, removePunctuation=TRUE, stopwords=TRUE, removeNumbers=TRUE))
   tdm <- removeSparseTerms(tdm, sparsity)
   tdm.df <- data.frame(as.matrix(tdm[1:dim(tdm)[1],]))
